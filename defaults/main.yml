@@ -1,0 +1,5 @@
+---
+systemd:
+  conf:
+    default_limit_no_file: 1006500
+    default_limit_nproc: 1006500

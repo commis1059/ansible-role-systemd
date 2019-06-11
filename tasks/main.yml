@@ -1,0 +1,22 @@
+---
+- name: Create /etc/systemd/system.conf.d
+  file:
+    path: /etc/systemd/system.conf.d
+    state: directory
+  become: yes
+
+- name: Set no limit
+  copy:
+    dest: /etc/systemd/system.conf.d/limits.conf
+    content: |
+      [Manager]
+      DefaultLimitNOFILE={{ systemd.conf.default_limit_no_file }}
+      DefaultLimitNPROC={{ systemd.conf.default_limit_nproc }}
+  become: yes
+
+- name: Install systemctl-bash-completion.sh
+  get_url:
+    url: https://github.com/terralinux/systemd/raw/master/src/systemctl-bash-completion.sh
+    dest: /etc/bash_completion.d/systemctl-bash-completion.sh
+    force: yes
+  become: yes
